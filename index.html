@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SmartCampus AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+
+        <span class="logo">SC</span>
+
+        <div>
+            <h1>SmartCampus AI</h1>
+            <p>Your academic command center</p>
+        </div>
+
+    </div>
+
+    <span class="badge">Hackathon MVP</span>
+
+</header>
+
+
+<main>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div>
+
+        <p class="eyebrow">
+            SMART EDUCATION
+        </p>
+
+        <h2>
+            Everything students need, in one place.
+        </h2>
+
+        <p>
+            Track deadlines, simplify notices, build study plans
+            and get instant academic help.
+        </p>
+
+    </div>
+
+
+    <div class="hero-card">
+
+        <div class="big">
+            5
+        </div>
+
+        <span>
+            core features in this prototype
+        </span>
+
+    </div>
+
+</section>  
+
+
+<!-- =========================
+     STUDENT DASHBOARD
+========================= -->
+
+<section class="dashboard-card">
+
+    <div class="dashboard-heading">
+
+        <div>
+
+            <p class="eyebrow">YOUR OVERVIEW</p>
+
+            <h2>📊 Student Dashboard</h2>
+
+            <p>
+                Here's a quick overview of your academic activity.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-stats">
+
+
+        <!-- TOTAL ASSIGNMENTS -->
+
+        <div class="dashboard-stat">
+
+            <span class="stat-icon">📚</span>
+
+            <div>
+
+                <strong>
+                    {{ tasks|length }}
+                </strong>
+
+                <span>
+                    Total Assignments
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="dashboard-stat">
+
+            <span class="stat-icon">⏳</span>
+
+            <div>
+
+                <strong>
+                    {{ tasks|selectattr('status','equalto','Pending')|list|length }}
+                </strong>
+
+                <span>
+                    Pending
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPLETED -->
+
+        <div class="dashboard-stat">
+
+            <span class="stat-icon">✅</span>
+
+            <div>
+
+                <strong>
+                    {{ tasks|selectattr('status','equalto','Completed')|list|length }}
+                </strong>
+
+                <span>
+                    Completed
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NOTICES -->
+
+        <div class="dashboard-stat">
+
+            <span class="stat-icon">📢</span>
+
+            <div>
+
+                <strong>
+                    {{ notices|length }}
+                </strong>
+
+                <span>
+                    Recent Notices
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- =========================
+     MAIN FEATURES
+========================= -->
+
+<section class="grid">
+
+
+    <!-- =========================
+         ASSIGNMENTS
+    ========================= -->
+
+    <article class="card wide">
+
+        <div class="card-head">
+
+            <h3>
+                📚 Assignments & Deadlines
+            </h3>
+
+            <button onclick="show('taskModal')">
+                + Add
+            </button>
+
+        </div>
+
+
+        <div id="taskList">
+
+            {% for t in tasks %}
+
+            <div
+                class="task {% if t['status']=='Completed' %}done{% endif %}"
+                id="task-{{t['id']}}"
+            >
+
+                <div>
+
+                    <strong>
+                        {{t['title']}}
+                    </strong>
+
+                    <small>
+                        {{t['subject']}} · Due {{t['due_date']}}
+                    </small>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="ghost"
+                        onclick="toggleTask({{t['id']}})"
+                    >
+                        {{t['status']}}
+                    </button>
+
+
+                    <button
+                        class="delete"
+                        onclick="deleteTask({{t['id']}})"
+                    >
+                        x
+                    </button>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =========================
+         NOTICE SUMMARIZER
+    ========================= -->
+
+    <article class="card">
+
+        <h3>
+            📢 Notice Summarizer
+        </h3>
+
+        <p class="muted">
+
+            Paste a college notice below and get the important
+            information in a simple format.
+
+        </p>
+
+
+        <textarea
+            id="notice"
+            placeholder="Paste a college notice here..."
+        ></textarea>
+
+
+        <button
+            class="primary"
+            onclick="summarize()"
+        >
+            Summarize Notice
+        </button>
+
+
+        <div
+            id="summary"
+            class="result"
+        ></div>
+
+    </article>
+
+
+
+    <!-- =========================
+         AI STUDY PLANNER
+    ========================= -->
+
+    <article class="card">
+
+        <h3>
+            🗓️ AI Study Planner
+        </h3>
+
+        <p class="muted">
+
+            Enter your subjects, remaining days and daily study
+            time to create a personalized study plan.
+
+        </p>
+
+
+        <!-- SUBJECTS -->
+
+        <input
+            id="subjects"
+            placeholder="📚 Enter subjects: DBMS, Java, OS"
+        >
+
+
+        <!-- DAYS + HOURS -->
+
+        <div class="row">
+
+
+            <div>
+
+                <label>
+                    📅 Days Left
+                </label>
+
+                <input
+                    id="days"
+                    type="number"
+                    min="1"
+                    max="14"
+                    value="5"
+                    placeholder="Enter days left"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    ⏰ Hours Studying / Day
+                </label>
+
+                <input
+                    id="hours"
+                    type="number"
+                    min="1"
+                    max="12"
+                    value="4"
+                    placeholder="Enter hours"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CREATE PLAN -->
+
+        <button
+            class="primary"
+            onclick="makePlan()"
+        >
+            🧠 Create My Study Plan
+        </button>
+
+
+        <!-- PLAN RESULT -->
+
+        <div
+            id="plan"
+            class="result"
+        ></div>
+
+    </article>
+
+
+
+    <!-- =========================
+         CAMPUS ASSISTANT
+    ========================= -->
+
+    <article class="card">
+
+        <h3>
+            🤖 Campus Assistant
+        </h3>
+
+
+        <p class="muted">
+
+            Ask questions about assignments, study plans,
+            notices, DBMS, Java or other academic topics.
+
+        </p>
+
+
+        <div
+            id="chat"
+            class="chat"
+        >
+
+            <div class="bot">
+
+                Hi! Ask me about assignments, study plans,
+                notices, DBMS or Java.
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+
+            <input
+                id="message"
+                placeholder="Ask something..."
+                onkeydown="if(event.key==='Enter') chatSend()"
+            >
+
+
+            <button onclick="chatSend()">
+                Send
+            </button>
+
+
+        </div>
+
+    </article>
+
+
+</section>
+
+
+
+<!-- =========================
+     MISSED CLASSES
+========================= -->
+
+<section class="card missed-classes">
+
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                🎥 Missed Classes
+            </h2>
+
+            <p>
+                Recover lectures you missed and study them later.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ADD LECTURE FORM -->
+
+    <div class="lecture-form">
+
+
+        <input
+            id="lectureTitle"
+            type="text"
+            placeholder="Lecture title"
+        >
+
+
+        <input
+            id="lectureSubject"
+            type="text"
+            placeholder="Subject"
+        >
+
+
+        <input
+            id="lectureDate"
+            type="date"
+        >
+
+
+        <input
+            id="lectureVideo"
+            type="text"
+            placeholder="Video URL (optional)"
+        >
+
+
+        <textarea
+            id="lectureNotes"
+            placeholder="Lecture notes (optional)"
+        ></textarea>
+
+
+        <button onclick="addLecture()">
+            ➕ Add Lecture
+        </button>
+
+
+    </div>
+
+
+
+    <!-- LECTURE LIST -->
+
+    <div
+        id="lectureList"
+        class="lecture-list"
+    >
+
+        <p>
+            Loading lectures...
+        </p>
+
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================
+     ADD ASSIGNMENT MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="taskModal"
+>
+
+
+    <div class="modal-box">
+
+
+        <div class="card-head">
+
+
+            <h3>
+                Add Assignment
+            </h3>
+
+
+            <button
+                class="delete"
+                onclick="hide('taskModal')"
+            >
+                ×
+            </button>
+
+
+        </div>
+
+
+
+        <input
+            id="title"
+            placeholder="Assignment title"
+        >
+
+
+        <input
+            id="subject"
+            placeholder="Subject"
+        >
+
+
+        <input
+            id="due"
+            type="date"
+        >
+
+
+
+        <button
+            class="primary"
+            onclick="addTask()"
+        >
+            Save Assignment
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script src="/static/app.js"></script>
+
+
+</body>
+
+</html>
