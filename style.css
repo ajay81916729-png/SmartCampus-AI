@@ -1,0 +1,943 @@
+/* =========================================================
+   SmartCampus AI — Modern Hackathon UI
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f4f7ff;
+    --card: #ffffff;
+    --text: #17213a;
+    --muted: #71809b;
+    --primary: #5b5ce2;
+    --primary-dark: #4142b8;
+    --secondary: #7c5cff;
+    --border: #e5e9f5;
+    --success: #16a085;
+    --danger: #e05252;
+    --shadow: 0 12px 35px rgba(45, 55, 100, 0.09);
+}
+
+body {
+    margin: 0;
+    font-family: Inter, "Segoe UI", system-ui, Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 0%, #e8e9ff 0, transparent 28%),
+        radial-gradient(circle at 90% 10%, #e7f3ff 0, transparent 25%),
+        var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    background: rgba(18, 25, 58, 0.94);
+    backdrop-filter: blur(16px);
+
+    color: white;
+    padding: 14px 6%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 5px 25px rgba(20, 25, 60, 0.18);
+}
+
+.brand {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.logo {
+    display: grid;
+    place-items: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #6b6df2,
+        #8a62ff
+    );
+
+    box-shadow: 0 8px 20px rgba(91, 92, 226, 0.4);
+
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 750;
+}
+
+.brand p {
+    margin: 3px 0 0;
+    color: #bfc8e7;
+    font-size: 12px;
+}
+
+.badge {
+    padding: 7px 13px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+
+    font-size: 12px;
+    color: #e5e8ff;
+}
+
+/* ================= MAIN ================= */
+
+main {
+    padding-bottom: 60px;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    max-width: 1180px;
+    margin: 30px auto 24px;
+
+    padding: 42px;
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(circle at 90% 20%, rgba(255,255,255,.18), transparent 25%),
+        linear-gradient(
+            135deg,
+            #202653,
+            #4749b8 55%,
+            #7654dc
+        );
+
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    box-shadow:
+        0 25px 60px rgba(48, 48, 120, 0.25);
+
+    overflow: hidden;
+}
+
+.hero h2 {
+    font-size: 42px;
+    line-height: 1.08;
+
+    max-width: 700px;
+
+    margin: 8px 0 14px;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    color: #dce2ff;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.eyebrow {
+    font-size: 12px !important;
+    letter-spacing: 2px;
+    font-weight: 800;
+    color: #bfc5ff !important;
+}
+
+.hero-card {
+    min-width: 180px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.22);
+
+    border-radius: 22px;
+
+    backdrop-filter: blur(10px);
+}
+
+.hero-card .big {
+    font-size: 54px;
+    font-weight: 850;
+}
+
+.hero-card span {
+    font-size: 12px;
+    color: #dce2ff;
+}
+
+/* ================= GRID ================= */
+
+.grid {
+    max-width: 1180px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+    padding: 0 0 50px;
+}
+
+.wide {
+    grid-column: span 2;
+}
+
+/* ================= CARDS ================= */
+
+.card {
+    background: rgba(255,255,255,.92);
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    padding: 23px;
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 18px 45px rgba(45,55,100,.13);
+}
+
+.card h2,
+.card h3 {
+    margin-top: 0;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.card-head,
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+}
+
+.section-header p {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* ================= INPUTS ================= */
+
+.card input,
+.card textarea {
+    width: 100%;
+
+    border: 1px solid #dfe4f1;
+
+    border-radius: 12px;
+
+    padding: 12px 13px;
+
+    margin-bottom: 10px;
+
+    font: inherit;
+
+    color: var(--text);
+
+    background: #fbfcff;
+
+    outline: none;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
+}
+
+.card input:focus,
+.card textarea:focus {
+    border-color: var(--primary);
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(91,92,226,.10);
+}
+
+.card textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.row input {
+    width: 50%;
+}
+
+/* ================= BUTTONS ================= */
+
+button {
+    font: inherit;
+}
+
+.card button,
+.actions button {
+    border: 0;
+
+    border-radius: 11px;
+
+    padding: 9px 13px;
+
+    cursor: pointer;
+
+    font-weight: 650;
+
+    transition:
+        transform .15s,
+        box-shadow .15s,
+        opacity .15s;
+}
+
+.card button:hover,
+.actions button:hover {
+    transform: translateY(-1px);
+}
+
+.primary {
+    width: 100%;
+
+    border: 0 !important;
+
+    border-radius: 12px !important;
+
+    padding: 12px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color: white;
+
+    font-weight: 750;
+
+    box-shadow:
+        0 8px 18px rgba(91,92,226,.22);
+}
+
+.primary:hover {
+    box-shadow:
+        0 12px 25px rgba(91,92,226,.30);
+}
+
+.card-head button {
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color: white;
+}
+
+.ghost {
+    background: #eef0ff !important;
+    color: #4c50c6 !important;
+}
+
+.delete {
+    background: #fff0f1 !important;
+    color: #d34f59 !important;
+}
+
+/* ================= ASSIGNMENTS ================= */
+
+.task {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px 0;
+
+    border-top: 1px solid #edf0f7;
+}
+
+.task strong {
+    font-size: 14px;
+}
+
+.task small {
+    display: block;
+
+    color: var(--muted);
+
+    margin-top: 5px;
+}
+
+.task.done strong {
+    text-decoration: line-through;
+    color: #909ab0;
+}
+
+.actions {
+    display: flex;
+    gap: 7px;
+}
+
+/* ================= MISSED CLASSES ================= */
+
+.missed-classes {
+    grid-column: span 2;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f7f7ff
+        );
+}
+
+.lecture-form {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    padding: 18px;
+
+    margin-top: 15px;
+
+    border-radius: 17px;
+
+    background: #f7f8ff;
+
+    border: 1px solid #e7e9f7;
+}
+
+.lecture-form textarea,
+.lecture-form button {
+    grid-column: span 2;
+}
+
+.lecture-list {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin-top: 18px;
+}
+
+.lecture-card {
+    padding: 18px;
+
+    border-radius: 17px;
+
+    background: white;
+
+    border: 1px solid #e5e8f3;
+
+    box-shadow: 0 7px 20px rgba(50,60,110,.06);
+
+    transition: .2s;
+}
+
+.lecture-card:hover {
+    border-color: #cfd2ff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 12px 28px rgba(50,60,110,.10);
+}
+
+.lecture-card h3 {
+    margin-bottom: 10px;
+}
+
+.lecture-card p {
+    color: #66738d;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+
+.lecture-card a {
+    display: inline-block;
+
+    color: #4e50c9;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    margin: 5px 0;
+}
+
+.lecture-card a:hover {
+    text-decoration: underline;
+}
+
+/* AI NOTES */
+
+.ai-notes {
+    margin-top: 15px;
+
+    padding: 16px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f3ff,
+            #f3f8ff
+        );
+
+    border: 1px solid #e3e2fb;
+
+    line-height: 1.65;
+
+    font-size: 14px;
+
+    color: #39435d;
+}
+
+/* AI QUIZ */
+
+.ai-quiz {
+    margin-top: 15px;
+
+    padding: 17px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f2f7ff,
+            #f7f2ff
+        );
+
+    border: 1px solid #e2e5fa;
+
+    line-height: 1.65;
+
+    font-size: 14px;
+}
+
+.ai-quiz h3 {
+    color: #4b4dbd;
+}
+
+/* ================= RESULT BOXES ================= */
+
+.result {
+    margin-top: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6f8ff,
+            #f9f7ff
+        );
+
+    border: 1px solid #e7e9f5;
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+
+    min-height: 25px;
+}
+
+/* ================= CHAT ================= */
+
+.chat {
+    height: 230px;
+
+    overflow-y: auto;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f5f7ff,
+            #fafaff
+        );
+
+    border: 1px solid #e7e9f4;
+
+    border-radius: 15px;
+
+    padding: 13px;
+
+    scrollbar-width: thin;
+}
+
+.bot,
+.user {
+    padding: 10px 12px;
+
+    border-radius: 14px;
+
+    margin-bottom: 9px;
+
+    max-width: 88%;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.bot {
+    background: white;
+
+    border: 1px solid #e4e7f1;
+
+    box-shadow: 0 3px 10px rgba(40,50,100,.04);
+}
+
+.user {
+    background:
+        linear-gradient(
+            135deg,
+            #5b5ce2,
+            #7956dc
+        );
+
+    color: white;
+
+    margin-left: auto;
+}
+
+.chat-input {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.chat-input input {
+    margin: 0;
+}
+
+.chat-input button {
+    background: #202653;
+    color: white;
+    min-width: 70px;
+}
+
+/* ================= STATS ================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.stats div {
+    background:
+        linear-gradient(
+            145deg,
+            #f5f6ff,
+            #f8fbff
+        );
+
+    border: 1px solid #e8eaf5;
+
+    border-radius: 14px;
+
+    padding: 16px;
+
+    text-align: center;
+}
+
+.stats b {
+    display: block;
+
+    font-size: 26px;
+
+    color: #4e50c9;
+}
+
+.stats span {
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+.muted {
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    background: rgba(15,20,45,.65);
+
+    backdrop-filter: blur(6px);
+
+    place-items: center;
+
+    padding: 20px;
+}
+
+.modal-box {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    width: min(440px, 100%);
+
+    box-shadow:
+        0 30px 80px rgba(10,15,50,.30);
+
+    animation: modalIn .2s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================= EMPTY STATE ================= */
+
+.empty-state {
+    text-align: center;
+
+    padding: 30px;
+
+    color: var(--muted);
+
+    background: #f8f9ff;
+
+    border: 1px dashed #dfe3f2;
+
+    border-radius: 15px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+
+        padding: 0 15px 40px;
+    }
+
+    .wide,
+    .missed-classes {
+        grid-column: auto;
+    }
+
+    .hero {
+        margin: 18px 15px;
+
+        padding: 30px;
+
+        display: block;
+    }
+
+    .hero h2 {
+        font-size: 34px;
+    }
+
+    .hero-card {
+        margin-top: 22px;
+    }
+
+    .lecture-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 12px 15px;
+    }
+
+    .badge {
+        display: none;
+    }
+
+    .hero h2 {
+        font-size: 29px;
+    }
+
+    .hero {
+        border-radius: 20px;
+    }
+
+    .lecture-form {
+        grid-template-columns: 1fr;
+    }
+
+    .lecture-form textarea,
+    .lecture-form button {
+        grid-column: auto;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .row input {
+        width: 100%;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .task {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .actions {
+        width: 100%;
+    }
+}
+/* =========================
+   STUDENT DASHBOARD
+========================= */
+
+.dashboard-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-heading h2 {
+    margin: 4px 0 6px;
+    font-size: 28px;
+}
+
+.dashboard-heading p:not(.eyebrow) {
+    margin: 0;
+    color: var(--muted);
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.dashboard-stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+.dashboard-stat strong {
+    display: block;
+    font-size: 25px;
+}
+
+.dashboard-stat span:last-child {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+/* MOBILE */
+@media (max-width: 800px) {
+
+    .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+}
